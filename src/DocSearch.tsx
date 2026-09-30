@@ -34,7 +34,12 @@ export type DocSearchTranslations = Partial<{
   modal: ModalTranslations;
 }>;
 
-const DEFAULT_HOTKEYS = ["ctrl+k", "s", "/"];
+// The FIRST entry is what the search button hints. ⌘/Ctrl+K is kept as a
+// binding where the browser delivers it to the page, but several hosts
+// (Chrome's omnibox, embedded webviews) consume it before JS runs — so the
+// hinted key must be one that always reaches us: ⌘/Ctrl+/. Plain `s` and
+// `/` keep working as single-key toggles.
+const DEFAULT_HOTKEYS = ["ctrl+/", "ctrl+k", "s", "/"];
 
 export const DocSearch: Component<DocSearchProps> = (props) => {
   const { environment = window, hotKeys = DEFAULT_HOTKEYS } = props;
